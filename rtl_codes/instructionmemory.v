@@ -1,4 +1,4 @@
-`timescale 1ns/1ps;
+`timescale 1ns/1ps
 
 //This is an instruction memory, which will recive the instruction form
 //program counter and gives to next stage of pipelining.
@@ -7,7 +7,7 @@ module instructionmemory #(parameter WIDTH = 32)(
 	output [WIDTH-1:0] RD
 );
 
-	reg [31:0] memory[0:511];
+	reg [WIDTH-1:0] memory[511:0];
 	
 initial
     begin
@@ -126,4 +126,5 @@ initial
 end
 
 	assign RD = memory[PC];
+
 endmodule

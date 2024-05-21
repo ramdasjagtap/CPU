@@ -11,23 +11,17 @@ module ALU #(parameter WIDTH =32)(
     
     always @(*)
         begin
-          case(controlsignal)
-          4'b0000: begin
-                             Y = A1 & A2;
-          end
-          4'b0001: begin
+          if(controlsignal == 4'b0000)
+                            Y = A1 & A2;
+          else if(controlsignal == 4'b0001)
                             Y = A1 | A2;
-          end
-          4'b0010: begin
+          else if(controlsignal == 4'b0010)
                             Y = A1 + A2;
-          end
-          4'b0110: begin
+          else if(controlsignal == 4'b0110)
                             Y = A1 -  A2;
-          end
-          4'b0011: begin
+          else if(controlsignal == 4'b0011)
                             Y = A1 <<  A2;
-          end
-          4'b0100: begin
+          else if(controlsignal == 4'b0100) begin
                             if((~A1+1) < (~A2+1))
                                 begin
                                     Y = 1'b1;
@@ -37,25 +31,22 @@ module ALU #(parameter WIDTH =32)(
                                  Y  = 1'b0;
                               end
           end
-          4'b0101: begin
+          else if(controlsignal == 4'b0101) begin
                             if(A1 <  A2)
                                     Y = 1'b1;
                             else
                                     Y = 1'b0;
           end
-          4'b0111: begin
+          else if(controlsignal == 4'b0111)
                             Y = A1 ^ A2;
-          end
-          4'b1000: begin
+          else if(controlsignal == 4'b1000)
                             Y = A1 >> A2;
-          end
-          4'b1010: begin
+          else if(controlsignal == 4'b1010)
                              Y = A1 >>> A2;
-          end
-          default: Y = 'hx;
-          endcase
+          else 
+                             Y = {WIDTH{1'bx}};
         end
     
-    assign zero = (Y == 0) ;
+    assign zero = (Y == 0)? 1'b1: 1'b0;
     
 endmodule

@@ -31,7 +31,8 @@ module regfile #(parameter WIDTH = 32)(
 			REGFILE[w_reg] <= write_data;
 	 end
 
-	assign r_data1 = REGFILE[r_reg1];
-	assign r_data2 = REGFILE[r_reg1];
+	assign r_data1 = (r_reg1 != 0)? REGFILE[r_reg1] : 0;
+	assign r_data2 = (r_reg2 != 0)? REGFILE[r_reg2] : 0;
 	assign result = REGFILE[w_reg];
+	
 endmodule
